@@ -1,0 +1,547 @@
+lenovo@ubuntu:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database dnyaneh;
+Query OK, 1 row affected (0.18 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| customer           |
+| dnyaneh            |
+| mysql              |
+| performance_schema |
+| stud               |
+| sys                |
++--------------------+
+7 rows in set (0.17 sec)
+
+mysql> use dnyanesh;
+ERROR 1049 (42000): Unknown database 'dnyanesh'
+mysql> use dnyaneh;
+Database changed
+mysql> create table student(rno int(3), name varchar(20), dob date, marks float(5,2));
+Query OK, 0 rows affected (0.78 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_dnyaneh |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
+Empty set (0.04 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| marks | float(5,2)  | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> Insert into student(rno, name, dob, marks) values(1,'Dnyanesh','2003-12-7',87.54);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> slect * from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect * from student' at line 1
+mysql> select * from student;
++------+----------+------------+-------+
+| rno  | name     | dob        | marks |
++------+----------+------------+-------+
+|    1 | Dnyanesh | 2003-12-07 | 87.54 |
++------+----------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> alter table student add address varchar(30);
+Query OK, 0 rows affected (1.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| rno     | int(3)      | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| dob     | date        | YES  |     | NULL    |       |
+| marks   | float(5,2)  | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student add email varchar(20) after dob;
+Query OK, 0 rows affected (1.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| rno     | int(3)      | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| dob     | date        | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  |     | NULL    |       |
+| marks   | float(5,2)  | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student add email SrNo(3) first;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SrNo(3) first' at line 1
+mysql> alter table student add SrNo int(3) first;
+Query OK, 0 rows affected (0.99 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| SrNo    | int(3)      | YES  |     | NULL    |       |
+| rno     | int(3)      | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| dob     | date        | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  |     | NULL    |       |
+| marks   | float(5,2)  | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> alter table student modify rNo int(5);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| SrNo    | int(3)      | YES  |     | NULL    |       |
+| rNo     | int(5)      | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| dob     | date        | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  |     | NULL    |       |
+| marks   | float(5,2)  | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student modify marks int(3);
+Query OK, 1 row affected (1.23 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| SrNo    | int(3)      | YES  |     | NULL    |       |
+| rNo     | int(5)      | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| dob     | date        | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  |     | NULL    |       |
+| marks   | int(3)      | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student drop column address;
+Query OK, 0 rows affected (0.95 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| SrNo  | int(3)      | YES  |     | NULL    |       |
+| rNo   | int(5)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
+| marks | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student drop column SrNo;
+Query OK, 0 rows affected (1.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rNo   | int(5)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
+| marks | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.20 sec)
+
+mysql> alter table student rename to stud;
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_dnyaneh |
++-------------------+
+| stud              |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> desc stud;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rNo   | int(5)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
+| marks | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stud change dob date_of_birth dtae;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dtae' at line 1
+mysql> alter table stud change dob date_of_birth date;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc stud;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| rNo           | int(5)      | YES  |     | NULL    |       |
+| name          | varchar(20) | YES  |     | NULL    |       |
+| date_of_birth | date        | YES  |     | NULL    |       |
+| email         | varchar(20) | YES  |     | NULL    |       |
+| marks         | int(3)      | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into stud values(1,'Dnyanesh','2003127','dnyanesh@gmail.com',87);
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> insert into stud values(1,'ayush','2003714','ayush@gmail.com',95);
+ERROR 1292 (22007): Incorrect date value: '2003714' for column 'date_of_birth' at row 1
+mysql> insert into stud values(1,'ayush','20030714','ayush@gmail.com',95);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into stud values(3,'nayan','2003107','nayan@gmail.com',66);
+Query OK, 1 row affected, 1 warning (0.10 sec)
+
+mysql> select * from stud;
++------+----------+---------------+--------------------+-------+
+| rNo  | name     | date_of_birth | email              | marks |
++------+----------+---------------+--------------------+-------+
+|    1 | Dnyanesh | 2003-12-07    | NULL               |    88 |
+|    1 | Dnyanesh | 2020-03-12    | dnyanesh@gmail.com |    87 |
+|    1 | ayush    | 2003-07-14    | ayush@gmail.com    |    95 |
+|    3 | nayan    | 2020-03-10    | nayan@gmail.com    |    66 |
++------+----------+---------------+--------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> delete from stud where marks=88;
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from stud;
++------+----------+---------------+--------------------+-------+
+| rNo  | name     | date_of_birth | email              | marks |
++------+----------+---------------+--------------------+-------+
+|    1 | Dnyanesh | 2020-03-12    | dnyanesh@gmail.com |    87 |
+|    1 | ayush    | 2003-07-14    | ayush@gmail.com    |    95 |
+|    3 | nayan    | 2020-03-10    | nayan@gmail.com    |    66 |
++------+----------+---------------+--------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> update stud set rno=2 where name='ayush';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud;
++------+----------+---------------+--------------------+-------+
+| rNo  | name     | date_of_birth | email              | marks |
++------+----------+---------------+--------------------+-------+
+|    1 | Dnyanesh | 2020-03-12    | dnyanesh@gmail.com |    87 |
+|    2 | ayush    | 2003-07-14    | ayush@gmail.com    |    95 |
+|    3 | nayan    | 2020-03-10    | nayan@gmail.com    |    66 |
++------+----------+---------------+--------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> truncate stud;
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> select * from stud;
+Empty set (0.00 sec)
+
+mysql> desc stud;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| rNo           | int(5)      | YES  |     | NULL    |       |
+| name          | varchar(20) | YES  |     | NULL    |       |
+| date_of_birth | date        | YES  |     | NULL    |       |
+| email         | varchar(20) | YES  |     | NULL    |       |
+| marks         | int(3)      | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table stud;
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> desc stud;
+ERROR 1146 (42S02): Table 'dnyaneh.stud' doesn't exist
+mysql> select * from stud;
+ERROR 1146 (42S02): Table 'dnyaneh.stud' doesn't exist
+mysql> drop database dnayneh;
+ERROR 1008 (HY000): Can't drop database 'dnayneh'; database doesn't exist
+mysql> create database Dnaynesh1;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> use dnyanesh1;
+ERROR 1049 (42000): Unknown database 'dnyanesh1'
+mysql> use Dnyanesh1;
+ERROR 1049 (42000): Unknown database 'Dnyanesh1'
+mysql> drop database Dnatnesh1;
+ERROR 1008 (HY000): Can't drop database 'Dnatnesh1'; database doesn't exist
+mysql> use Dnaynesh1;
+Database changed
+mysql> create create table stud(rno int(3),name varchar(20
+    -> create create table stud(rno int(3),name varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table stud(rno int(3),name varchar(20
+create create table stud(rno int(3)' at line 1
+mysql> create create table stud(rno int(3),name varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table stud(rno int(3),name varchar(20))' at line 1
+mysql> create table stud(rno int(3),name varchar(20));
+Query OK, 0 rows affected (0.86 sec)
+
+mysql> create index n1 on stud(rno);
+Query OK, 0 rows affected (0.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from stud;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| stud  |          1 | n1       |            1 | rno         | A         |           0 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> insert into stud values (1,'aa'),(2,'bb'),(3,'cc');
+Query OK, 3 rows affected (0.21 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> show index from stud;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| stud  |          1 | n1       |            1 | rno         | A         |           3 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from stud;
++------+------+
+| rno  | name |
++------+------+
+|    1 | aa   |
+|    2 | bb   |
+|    3 | cc   |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table stud drop index n1;
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table account(ano int(3), name varchar(20), balance int);
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> insert into account values(101,'aa',2000),(102,'bb',50000);
+Query OK, 2 rows affected (0.09 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from account;
++------+------+---------+
+| ano  | name | balance |
++------+------+---------+
+|  101 | aa   |    2000 |
+|  102 | bb   |   50000 |
++------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> create view v2 as select ano,name from account;
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> select * from v2;
++------+------+
+| ano  | name |
++------+------+
+|  101 | aa   |
+|  102 | bb   |
++------+------+
+2 rows in set (0.02 sec)
+
+mysql> insert into v2 values(103,'cc');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from v2;
++------+------+
+| ano  | name |
++------+------+
+|  101 | aa   |
+|  102 | bb   |
+|  103 | cc   |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> drop view v2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from account;
++------+------+---------+
+| ano  | name | balance |
++------+------+---------+
+|  101 | aa   |    2000 |
+|  102 | bb   |   50000 |
+|  103 | cc   |    NULL |
++------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from v2;
+ERROR 1146 (42S02): Table 'Dnaynesh1.v2' doesn't exist
+mysql> create table cust(cid int(3) primary key auto_increment, name varchar(20));
+Query OK, 0 rows affected (0.82 sec)
+
+mysql> desc cust;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| cid   | int(3)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> insert into cust(name) values('aa'),('bb'),('cc');
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from cust;
++-----+------+
+| cid | name |
++-----+------+
+|   1 | aa   |
+|   2 | bb   |
+|   3 | cc   |
++-----+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into cust values(55,'dd');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from cust;
++-----+------+
+| cid | name |
++-----+------+
+|   1 | aa   |
+|   2 | bb   |
+|   3 | cc   |
+|  55 | dd   |
++-----+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into cust(name) values('ee');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from cust;
++-----+------+
+| cid | name |
++-----+------+
+|   1 | aa   |
+|   2 | bb   |
+|   3 | cc   |
+|  55 | dd   |
+|  56 | ee   |
++-----+------+
+5 rows in set (0.00 sec)
+
+mysql> delete from cust where cid=56;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from cust;
++-----+------+
+| cid | name |
++-----+------+
+|   1 | aa   |
+|   2 | bb   |
+|   3 | cc   |
+|  55 | dd   |
++-----+------+
+4 rows in set (0.00 sec)
+
+mysql> alter table cust auto_imcrement=1001;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_imcrement=1001' at line 1
+mysql> alter table cust auto_increment=1001;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into cust(name) values('aa'),('bb'),('cc');
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from cust;
++------+------+
+| cid  | name |
++------+------+
+|    1 | aa   |
+|    2 | bb   |
+|    3 | cc   |
+|   55 | dd   |
+| 1001 | aa   |
+| 1002 | bb   |
+| 1003 | cc   |
++------+------+
+7 rows in set (0.00 sec)
+
+mysql> alter table cust modify cid int(3);
+Query OK, 7 rows affected (1.75 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> desc cust;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | int(3)      | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table cust drop primary key;
+Query OK, 7 rows affected (1.50 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> desc cust;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | int(3)      | NO   |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+

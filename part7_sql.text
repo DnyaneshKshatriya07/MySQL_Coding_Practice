@@ -1,0 +1,214 @@
+lenovo@ubuntu:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Dnaynesh1          |
+| ass                |
+| ass3               |
+| assignment2        |
+| college2           |
+| dnyanu             |
+| example            |
+| mysql              |
+| performance_schema |
+| sahil              |
+| sakshi             |
+| stud               |
+| sys                |
++--------------------+
+14 rows in set (0.21 sec)
+
+mysql> use dnyanu;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_dnyanu |
++------------------+
+| B                |
+| a1               |
+| a2               |
+| a3               |
+| a4               |
+| a5               |
+| a6               |
+| employee         |
+| fine             |
+| stud             |
++------------------+
+10 rows in set (0.00 sec)
+
+mysql> delimiter //
+mysql> create function add1(a int, b int) returns int
+    -> begin
+    -> declare int;
+    -> declare c int;
+    -> set c=a+b;
+    -> return c;
+    -> end; //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int;
+declare c int;
+set c=a+b;
+return c;
+end' at line 3
+mysql> create function add1(a int, b int) returns int begin declare c int; set c=a+b; return c; end;//Query OK, 0 rows affected (0.05 sec)
+
+mysql> select add1(10,20); //
++-------------+
+| add1(10,20) |
++-------------+
+|          30 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> create function max1(n1 int, n2 int) returns varchar(10
+    -> )
+    -> deterministic
+    -> begin
+    -> declare maximum1 varchar(10);
+    -> if ^C
+mysql> create function max1(n1 int, n2 int) returns varchar(10)
+    -> begin
+    -> declare maximum1 varchar(20);
+    -> if(n1>n2) then
+    -> set maximum1 ='Max number is n1';
+    -> else
+    -> set maximum1 ='Max number is n2';
+    -> end if;
+    -> return maximum1;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select max1(5,7) //
+ERROR 1265 (01000): Data truncated for column 'max1(5,7)' at row 1
+mysql> select max1(7,5) //
+ERROR 1265 (01000): Data truncated for column 'max1(7,5)' at row 1
+mysql> create function max1(n1 int, n2 int) returns varchar(20) begin declare maximum1 varchar(20); if(n1>n2) then set maximum1 ='Max number is n1'; else set maximum1 ='Max number is n2'; end if; return maximum1; end//
+ERROR 1304 (42000): FUNCTION max1 already exists
+mysql> create function max5(n1 int, n2 int) returns varchar(20) begin declare maximum1 varchar(20); if(n1>n2) then set maximum1 ='Max number is n1'; else set maximum1 ='Max number is n2'; end if; return maximum1; end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select max5(7,5) //
++------------------+
+| max5(7,5)        |
++------------------+
+| Max number is n1 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> show tables;
+    -> //
++------------------+
+| Tables_in_dnyanu |
++------------------+
+| B                |
+| a1               |
+| a2               |
+| a3               |
+| a4               |
+| a5               |
+| a6               |
+| employee         |
+| fine             |
+| stud             |
++------------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from stud;//
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Amol   |
+|    2 | lallya |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create function a1(rno1 int) returns varchar(20)
+    -> begin
+    -> declare sname varchar(20);
+    -> select name into sname from stud where rno=rno1;
+    -> return sname;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select a1(2);
+    -> //
++--------+
+| a1(2)  |
++--------+
+| lallya |
++--------+
+1 row in set (0.00 sec)
+
+mysql> create table stud1(rno int,marks int)//
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> insert into stud1(1,90),(2,99),(3,30),(4,50)//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,90),(2,99),(3,30),(4,50)' at line 1
+mysql> insert into stud1 values(1,90),(2,99),(3,30),(4,50)//
+Query OK, 4 rows affected (0.08 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud1//
++------+-------+
+| rno  | marks |
++------+-------+
+|    1 |    90 |
+|    2 |    99 |
+|    3 |    30 |
+|    4 |    50 |
++------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create function fgrade1(rno1 int) returns varchar(20)
+    -> begin
+    -> declare grade varchar(20);
+    -> declare marks1 int;
+    -> select marks into marks1 from stud where rno=rno1;
+    -> if(marks1>75) then
+    -> set grade='Distiction';
+    -> elseif(marks1>= and marks1<75) then
+    -> set grade='Firstclass';
+    -> elseif(marks1<60 and marks1>=40) then
+    -> set grade='Pass Class';
+    -> else
+    -> set grade='fail';
+    -> end if;
+    -> return grade;
+    -> end;
+    -> //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and marks1<75) then
+set grade='Firstclass';
+elseif(marks1<60 and marks1>=40) the' at line 8
+mysql> create function fgrade2(rno1 int) returns varchar(20) begin declare grade varchar(20); declare marks1 int; select marks into marks1 from stud1 where rno=rno1; if(marks1>75) then set grade='Distiction'; elseif(marks1>=60 and marks1<75) then set grade='Firstclass'; elseif(marks1<60 and marks1>=40) then set grade='Pass Class'; else set grade='fail'; end if; return grade; end;//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select fgrade(2)//
+ERROR 1305 (42000): FUNCTION dnyanu.fgrade does not exist
+mysql> select fgrade2(2)//
++------------+
+| fgrade2(2) |
++------------+
+| Distiction |
++------------+
+1 row in set (0.00 sec)
+
+mysql> 
+

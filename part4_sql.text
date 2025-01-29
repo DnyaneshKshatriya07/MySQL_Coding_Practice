@@ -1,0 +1,648 @@
+lenovo@ubuntu:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> mysql> create database college2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'daeate database college2' at line 1
+mysql> create database college2;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> create table stud(rno int(3), name varchar(20));
+ERROR 1046 (3D000): No database selected
+mysql> use college2;
+Database changed
+mysql> create table stud(rno int(3), name varchar(20));
+Query OK, 0 rows affected (0.96 sec)
+
+mysql> desc stud;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> insert into stud values(1,'Dnyanu');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into stud(rno) values(2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into stud(name) values('Sonu');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from stud;
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+|    2 | NULL   |
+| NULL | Sonu   |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into stud values(4,'Om'),(5,'Ram'),(6,'Sham');
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud;
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+|    2 | NULL   |
+| NULL | Sonu   |
+|    4 | Om     |
+|    5 | Ram    |
+|    6 | Sham   |
++------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from stud where rno=2;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from stud;
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+| NULL | Sonu   |
+|    4 | Om     |
+|    5 | Ram    |
+|    6 | Sham   |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from stud where name='Sono';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from stud;
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+| NULL | Sonu   |
+|    4 | Om     |
+|    5 | Ram    |
+|    6 | Sham   |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from stud where name='Sonu';
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from stud;
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+|    4 | Om     |
+|    5 | Ram    |
+|    6 | Sham   |
++------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update stud set name='Ved' where rno=1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud;
++------+------+
+| rno  | name |
++------+------+
+|    1 | Ved  |
+|    4 | Om   |
+|    5 | Ram  |
+|    6 | Sham |
++------+------+
+4 rows in set (0.00 sec)
+
+mysql> update stud set rno=3 where name='Ved';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud;
++------+------+
+| rno  | name |
++------+------+
+|    3 | Ved  |
+|    4 | Om   |
+|    5 | Ram  |
+|    6 | Sham |
++------+------+
+4 rows in set (0.00 sec)
+
+mysql> update stud set rno=5, name='sham' where name='Hanuman';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from stud;
++------+------+
+| rno  | name |
++------+------+
+|    3 | Ved  |
+|    4 | Om   |
+|    5 | Ram  |
+|    6 | Sham |
++------+------+
+4 rows in set (0.00 sec)
+
+mysql> update stud set rno=5, name='Hanuman' where name='sham';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud;
++------+---------+
+| rno  | name    |
++------+---------+
+|    3 | Ved     |
+|    4 | Om      |
+|    5 | Ram     |
+|    5 | Hanuman |
++------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud where rno=5;
++------+---------+
+| rno  | name    |
++------+---------+
+|    5 | Ram     |
+|    5 | Hanuman |
++------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select name  from stud where rno=5;
++---------+
+| name    |
++---------+
+| Ram     |
+| Hanuman |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from stud where rno>3;
++------+---------+
+| rno  | name    |
++------+---------+
+|    4 | Om      |
+|    5 | Ram     |
+|    5 | Hanuman |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from stud where rno=!4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=!4' at line 1
+mysql> select * from stud where rno!=4;
++------+---------+
+| rno  | name    |
++------+---------+
+|    3 | Ved     |
+|    5 | Ram     |
+|    5 | Hanuman |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from stud where rno>4;
++------+---------+
+| rno  | name    |
++------+---------+
+|    5 | Ram     |
+|    5 | Hanuman |
++------+---------+
+2 rows in set (0.00 sec)
+
+mysql> alter table stud add city varchar(20);
+Query OK, 0 rows affected (1.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc stud;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from stud;
++------+---------+------+
+| rno  | name    | city |
++------+---------+------+
+|    3 | Ved     | NULL |
+|    4 | Om      | NULL |
+|    5 | Ram     | NULL |
+|    5 | Hanuman | NULL |
++------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> udate stud set city='Nashik' where rno=2 and rno=4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'udate stud set city='Nashik' where rno=2 and rno=4' at line 1
+mysql> update stud set city='Nashik' where rno=2 and rno=4;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from stud;
++------+---------+------+
+| rno  | name    | city |
++------+---------+------+
+|    3 | Ved     | NULL |
+|    4 | Om      | NULL |
+|    5 | Ram     | NULL |
+|    5 | Hanuman | NULL |
++------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> update stud set city='Nashik' where rno=3 or  rno=4;
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from stud;
++------+---------+--------+
+| rno  | name    | city   |
++------+---------+--------+
+|    3 | Ved     | Nashik |
+|    4 | Om      | Nashik |
+|    5 | Ram     | NULL   |
+|    5 | Hanuman | NULL   |
++------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update stud set city='Pune' where rno in(5);
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from stud;
++------+---------+--------+
+| rno  | name    | city   |
++------+---------+--------+
+|    3 | Ved     | Nashik |
+|    4 | Om      | Nashik |
+|    5 | Ram     | Pune   |
+|    5 | Hanuman | Pune   |
++------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud order by rno;
++------+---------+--------+
+| rno  | name    | city   |
++------+---------+--------+
+|    3 | Ved     | Nashik |
+|    4 | Om      | Nashik |
+|    5 | Ram     | Pune   |
+|    5 | Hanuman | Pune   |
++------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into stud values(1,'Sham','Chandwad'),(2,'Bhole','Ujjan');
+Query OK, 2 rows affected (0.08 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud;
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    3 | Ved     | Nashik   |
+|    4 | Om      | Nashik   |
+|    5 | Ram     | Pune     |
+|    5 | Hanuman | Pune     |
+|    1 | Sham    | Chandwad |
+|    2 | Bhole   | Ujjan    |
++------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> update stud set rno=6 where name='Hanuman';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud;
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    3 | Ved     | Nashik   |
+|    4 | Om      | Nashik   |
+|    5 | Ram     | Pune     |
+|    6 | Hanuman | Pune     |
+|    1 | Sham    | Chandwad |
+|    2 | Bhole   | Ujjan    |
++------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from stud order by rno desc;
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    6 | Hanuman | Pune     |
+|    5 | Ram     | Pune     |
+|    4 | Om      | Nashik   |
+|    3 | Ved     | Nashik   |
+|    2 | Bhole   | Ujjan    |
+|    1 | Sham    | Chandwad |
++------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from stud order by rno;
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    1 | Sham    | Chandwad |
+|    2 | Bhole   | Ujjan    |
+|    3 | Ved     | Nashik   |
+|    4 | Om      | Nashik   |
+|    5 | Ram     | Pune     |
+|    6 | Hanuman | Pune     |
++------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from stud order by name;
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    2 | Bhole   | Ujjan    |
+|    6 | Hanuman | Pune     |
+|    4 | Om      | Nashik   |
+|    5 | Ram     | Pune     |
+|    1 | Sham    | Chandwad |
+|    3 | Ved     | Nashik   |
++------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from stud order by name,rno;
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    2 | Bhole   | Ujjan    |
+|    6 | Hanuman | Pune     |
+|    4 | Om      | Nashik   |
+|    5 | Ram     | Pune     |
+|    1 | Sham    | Chandwad |
+|    3 | Ved     | Nashik   |
++------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from stud where name like 'R%';
++------+------+------+
+| rno  | name | city |
++------+------+------+
+|    5 | Ram  | Pune |
++------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from stud where name like '%n';
++------+---------+------+
+| rno  | name    | city |
++------+---------+------+
+|    6 | Hanuman | Pune |
++------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from stud where name like 'R__';
++------+------+------+
+| rno  | name | city |
++------+------+------+
+|    5 | Ram  | Pune |
++------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from stud where name like 'H__';
+Empty set (0.00 sec)
+
+mysql> select * from stud where name like '%a%';
++------+---------+----------+
+| rno  | name    | city     |
++------+---------+----------+
+|    5 | Ram     | Pune     |
+|    6 | Hanuman | Pune     |
+|    1 | Sham    | Chandwad |
++------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select distinct(city) from stud;
++----------+
+| city     |
++----------+
+| Nashik   |
+| Pune     |
+| Chandwad |
+| Ujjan    |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> alter table stud add marks int(3);
+Query OK, 0 rows affected (1.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc stud;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
+| marks | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud;
++------+---------+----------+-------+
+| rno  | name    | city     | marks |
++------+---------+----------+-------+
+|    3 | Ved     | Nashik   |  NULL |
+|    4 | Om      | Nashik   |  NULL |
+|    5 | Ram     | Pune     |  NULL |
+|    6 | Hanuman | Pune     |  NULL |
+|    1 | Sham    | Chandwad |  NULL |
+|    2 | Bhole   | Ujjan    |  NULL |
++------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> update stud set marks=80 where rno=2;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud set marks=60 where rno=3;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud;
++------+---------+----------+-------+
+| rno  | name    | city     | marks |
++------+---------+----------+-------+
+|    3 | Ved     | Nashik   |    60 |
+|    4 | Om      | Nashik   |  NULL |
+|    5 | Ram     | Pune     |  NULL |
+|    6 | Hanuman | Pune     |  NULL |
+|    1 | Sham    | Chandwad |  NULL |
+|    2 | Bhole   | Ujjan    |    80 |
++------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from stud where marks is not null;
++------+-------+--------+-------+
+| rno  | name  | city   | marks |
++------+-------+--------+-------+
+|    3 | Ved   | Nashik |    60 |
+|    2 | Bhole | Ujjan  |    80 |
++------+-------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from stud where marks  not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'null' at line 1
+mysql> select * from stud where marks is null;
++------+---------+----------+-------+
+| rno  | name    | city     | marks |
++------+---------+----------+-------+
+|    4 | Om      | Nashik   |  NULL |
+|    5 | Ram     | Pune     |  NULL |
+|    6 | Hanuman | Pune     |  NULL |
+|    1 | Sham    | Chandwad |  NULL |
++------+---------+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*) from stud;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(marks) from stud;
++--------------+
+| count(marks) |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from stud where city='Nashik';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(marks) from stud where city='Nashik';
++--------------+
+| count(marks) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> select avg(marks) from stud;
++------------+
+| avg(marks) |
++------------+
+|    70.0000 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select sum(marks) from stud;
++------------+
+| sum(marks) |
++------------+
+|        140 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from stud;
++------------+
+| min(marks) |
++------------+
+|         60 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from stud;
++------------+
+| max(marks) |
++------------+
+|         80 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(name) from stud;
++-----------+
+| max(name) |
++-----------+
+| Ved       |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select min(name) from stud;
++-----------+
+| min(name) |
++-----------+
+| Bhole     |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select city,max(name) from stud group by city;
++----------+-----------+
+| city     | max(name) |
++----------+-----------+
+| Chandwad | Sham      |
+| Nashik   | Ved       |
+| Pune     | Ram       |
+| Ujjan    | Bhole     |
++----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select city,max(marks) from stud group by city;
++----------+------------+
+| city     | max(marks) |
++----------+------------+
+| Chandwad |       NULL |
+| Nashik   |         60 |
+| Pune     |       NULL |
+| Ujjan    |         80 |
++----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select city,max(marks) from stud group by city having max(marks)>70;
++-------+------------+
+| city  | max(marks) |
++-------+------------+
+| Ujjan |         80 |
++-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select city,max(*) from stud group by city having max(marks)>70;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) from stud group by city having max(marks)>70' at line 1
+mysql> select city,avg(marks) from stud group by city having avg(marks)>70;
++-------+------------+
+| city  | avg(marks) |
++-------+------------+
+| Ujjan |    80.0000 |
++-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select city,min(marks) from stud group by city having min(marks)<70;
++--------+------------+
+| city   | min(marks) |
++--------+------------+
+| Nashik |         60 |
++--------+------------+
+1 row in set (0.00 sec)
+
+mysql> delete from stud;
+Query OK, 6 rows affected (0.08 sec)
+
+mysql> select * from stud;
+Empty set (0.00 sec)
+
+mysql> 
+.

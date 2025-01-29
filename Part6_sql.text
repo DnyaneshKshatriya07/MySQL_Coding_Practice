@@ -1,0 +1,249 @@
+lenovo@ubuntu:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Dnaynesh1          |
+| ass                |
+| ass3               |
+| assignment2        |
+| college2           |
+| dnyanu             |
+| example            |
+| mysql              |
+| performance_schema |
+| sahil              |
+| sakshi             |
+| stud               |
+| sys                |
++--------------------+
+14 rows in set (0.17 sec)
+
+mysql> use dnyanu;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> delimiter //
+mysql> show tables; //
++------------------+
+| Tables_in_dnyanu |
++------------------+
+| a1               |
+| a2               |
+| a3               |
+| a4               |
+| a5               |
+| a6               |
+| employee         |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> create teble stud(rno int(3), name varchar(20))//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'teble stud(rno int(3), name varchar(20))' at line 1
+mysql> create teble stud(rno int(3), name varchar(20)) //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'teble stud(rno int(3), name varchar(20))' at line 1
+mysql> create table stud(rno int(3), name varchar(20)) //
+Query OK, 0 rows affected (0.54 sec)
+
+mysql> insert into stud values (1,'Dnyanu'),(2,'Om')//
+Query OK, 2 rows affected (0.07 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud //
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+|    2 | Om     |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create procedure Allstud()
+    -> begin
+    -> select * from stud;
+    -> end //
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> call Allstud() //
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+|    2 | Om     |
++------+--------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure Cname(in Sname varchar(25))
+    -> begin
+    -> select * from stud where name =Sname;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Canme("Om")//
+ERROR 1305 (42000): PROCEDURE dnyanu.Canme does not exist
+mysql> call Cname("Om")//
++------+------+
+| rno  | name |
++------+------+
+|    2 | Om   |
++------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure Uname(in rno1 int, Sname varchar(20))
+    -> begin
+    -> select * from stud;
+    -> update stud set name=Sname where rno=1;
+    -> select * from stud;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Uname(2,"Amol") //
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Dnyanu |
+|    2 | Om     |
++------+--------+
+2 rows in set (0.00 sec)
+
++------+------+
+| rno  | name |
++------+------+
+|    1 | Amol |
+|    2 | Om   |
++------+------+
+2 rows in set (0.07 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create procedure Uname1(in rno1 int, Sname varchar(20)) begin select * from stud; update stud set
+name=Sname where rno=rno1; select * from stud; end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Uname1(2,"lallya") //
++------+------+
+| rno  | name |
++------+------+
+|    1 | Amol |
+|    2 | Om   |
++------+------+
+2 rows in set (0.00 sec)
+
++------+--------+
+| rno  | name   |
++------+--------+
+|    1 | Amol   |
+|    2 | lallya |
++------+--------+
+2 rows in set (0.06 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create procedure IO(in rno1 int, out Sname varchar(20))
+    -> begin
+    -> select name into Sname from stud where rno=rno1;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call IO(2,@Sname) //
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @Sname //
++--------+
+| @Sname |
++--------+
+| lallya |
++--------+
+1 row in set (0.00 sec)
+
+mysql> create table B(rno int, name varchar(20), DOI date, Bname varchar(20), status char(1)) //
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> create table fine(rno int, Date date, Amt int) //
+Query OK, 0 rows affected (0.54 sec)
+
+mysql> insert into B values(1,'Amit','2020-10-1','c++','I'), (2,'Shivani','2020-9-10','Java','I'), (3,'Roshan','2020-9-25','DBMS','I'), (1,'Amit','2020-9-28','CN','I'), (4,'Janavi','2020-10-17','Java','I') //
+Query OK, 5 rows affected (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from B;
+    -> // 
++------+---------+------------+-------+--------+
+| rno  | name    | DOI        | Bname | status |
++------+---------+------------+-------+--------+
+|    1 | Amit    | 2020-10-01 | c++   | I      |
+|    2 | Shivani | 2020-09-10 | Java  | I      |
+|    3 | Roshan  | 2020-09-25 | DBMS  | I      |
+|    1 | Amit    | 2020-09-28 | CN    | I      |
+|    4 | Janavi  | 2020-10-17 | Java  | I      |
++------+---------+------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create procedure ret1(in rno1 int(3), Bname1 varchar(30))
+    -> begin
+    -> declare i_date date;
+    -> declare diff int;
+    -> declare fine_amt int;
+    -> declare status1 char(1);
+    -> select status into status1 from bor where rno=rno1 and Bname=Bname1;
+    -> if(status1 ='I') then 
+    -> select DOI into i_date from bor where rno=rno1 and Bname=Bname1;
+    -> select datadiff(curdate(),i_date) into diff;
+    -> if(diff>=15 and diff<=30) then set fine_amt=(diff-15)*5;
+    -> insert into fine values(rno1, curdate(), fine_amt);
+    -> elseif(diff>30) then set fine_amt=((diff-30)*50);
+    -> insert into fine values(rno1, curdate(), fine_amt);
+    -> end if;
+    -> upadte B set status='R' where rno=rno1 and Bname=Bname1;
+    -> end if;
+    -> select 
+    -> * from B;
+    -> select * from fine;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'B set status='R' where rno=rno1 and Bname=Bname1;
+end if;
+select 
+* from B;
+sele' at line 16
+mysql> create procedure ret1(in rno1 int(3), Bname1 varchar(30)) begin declare i_date date; declare diff
+int; declare fine_amt int; declare status1 char(1); select status into status1 from B where rno=rno1 and
+Bname=Bname1; if(status1 ='I') then select DOI into i_date from B  where rno=rno1 and Bname=Bname1; select datadiff(curdate(),i_date) into diff; if(diff>=15 and diff<=30) then set fine_amt=(diff-15)*5; insert into fine values(rno1, curdate(), fine_amt); elseif(diff>30) then set fine_amt=((diff-30)*50); insert into
+ fine values(rno1, curdate(), fine_amt); end if; upadte B set status='R' where rno=rno1 and Bname=Bname1;
+ end if; select * from B; select * from fine; end//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'B set status='R' where rno=rno1 and Bname=Bname1; end if; select * from B; selec' at line 1
+mysql> create procedure ret1(in rno1 int(3), Bname1 varchar(30)) begin declare i_date date; declare diff
+int; declare fine_amt int; declare status1 char(1); select status into status1 from B where rno=rno1 and
+Bname=Bname1; if(status1 ='I') then select DOI into i_date from B  where rno=rno1 and Bname=Bname1; select datadiff(curdate(),i_date) into diff; if(diff>=15 and diff<=30) then set fine_amt=(diff-15)*5; insert into fine values(rno1, curdate(), fine_amt); elseif(diff>30) then set fine_amt=((diff-30)*50); insert into fine values(rno1, curdate(), fine_amt); end if; update B set status='R' where rno=rno1 and Bname=Bname1;
+ end if; select * from B; select * from fine; end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call ret1(2,'Java')//
+ERROR 1305 (42000): FUNCTION dnyanu.datadiff does not exist
+mysql> call ret1(2,"Java")//
+ERROR 1305 (42000): FUNCTION dnyanu.datadiff does not exist
+mysql> 
+
+
+
+

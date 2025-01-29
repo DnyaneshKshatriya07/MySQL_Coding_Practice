@@ -1,0 +1,632 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 46
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> used interview;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'used interview' at line 1
+mysql> use interview;
+Database changed
+mysql> create table man(Id int, Name varchar(20), Address varchar(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> create table man(Id int, Name varchar(20), Address varchar(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table sheet(Id int, Math int, English int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_interview |
++---------------------+
+| account             |
+| job                 |
+| man                 |
+| person              |
+| sheet               |
++---------------------+
+5 rows in set (0.01 sec)
+
+mysql> insert into man(Id,Name,Address) values(1,'Nayan','Chandwad'),(2,'Ayush','Nashik'),(3,'Vedant','Jalgaon'),(5,'Mohit','Pune');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into sheet(Id,Math,English) values(1,80,68),(2,90,78),(3,94,87),(4,90,84);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from man;
++------+--------+----------+
+| Id   | Name   | Address  |
++------+--------+----------+
+|    1 | Nayan  | Chandwad |
+|    2 | Ayush  | Nashik   |
+|    3 | Vedant | Jalgaon  |
+|    5 | Mohit  | Pune     |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from sheet;
++------+------+---------+
+| Id   | Math | English |
++------+------+---------+
+|    1 |   80 |      68 |
+|    2 |   90 |      78 |
+|    3 |   94 |      87 |
+|    4 |   90 |      84 |
++------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select man.Id,Name,Math,English from man inner join sheet on man.Id=sheet.Id ;
++------+--------+------+---------+
+| Id   | Name   | Math | English |
++------+--------+------+---------+
+|    1 | Nayan  |   80 |      68 |
+|    2 | Ayush  |   90 |      78 |
+|    3 | Vedant |   94 |      87 |
++------+--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select man.Id,Name,Math,English from man left join sheet on man,Id=sheet.Id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=sheet.Id' at line 1
+mysql> select man.Id,Name,Math,English from man left join sheet on man.Id=sheet.Id;
++------+--------+------+---------+
+| Id   | Name   | Math | English |
++------+--------+------+---------+
+|    1 | Nayan  |   80 |      68 |
+|    2 | Ayush  |   90 |      78 |
+|    3 | Vedant |   94 |      87 |
+|    5 | Mohit  | NULL |    NULL |
++------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select man.Id,Name,Math,English from man right join sheet on man.Id=sheet.Id;
++------+--------+------+---------+
+| Id   | Name   | Math | English |
++------+--------+------+---------+
+|    1 | Nayan  |   80 |      68 |
+|    2 | Ayush  |   90 |      78 |
+|    3 | Vedant |   94 |      87 |
+| NULL | NULL   |   90 |      84 |
++------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select sheet.Id,Name,Math,English from man right join sheet on man.Id=sheet.Id;
++------+--------+------+---------+
+| Id   | Name   | Math | English |
++------+--------+------+---------+
+|    1 | Nayan  |   80 |      68 |
+|    2 | Ayush  |   90 |      78 |
+|    3 | Vedant |   94 |      87 |
+|    4 | NULL   |   90 |      84 |
++------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select sheet.Id,Name,Math,English from man left join sheet on man.Id=sheet.Id;
++------+--------+------+---------+
+| Id   | Name   | Math | English |
++------+--------+------+---------+
+|    1 | Nayan  |   80 |      68 |
+|    2 | Ayush  |   90 |      78 |
+|    3 | Vedant |   94 |      87 |
+| NULL | Mohit  | NULL |    NULL |
++------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table Emp(Eid int, Ename varchar(20), City varchar(20), Post varchar(15),Salary int, deptno int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into Emp values
+    ->     (1,'John','Nashik','Clerk',5000,10),
+    ->     (2,'Seema','Aurangabad','Developer',20000,20),
+    ->     (3,'Amita','Nagar','Manager',70000,20),
+    ->     (4,'Rakesh','Pune','Analyst',8000,10),
+    ->     (5,'Samata','Nashik','Tester',20000,10),
+    ->     (6,'Anita','Chandwad','Developer',30000,30),
+    ->     (7,'Bhavika','Pune','Team-LR',50000,30),
+    ->      (8,'Deepa','Mumbai','CEO',90000,10),
+    ->     (9,'Nitin','Nagpur','Clerk',8000,30),
+    ->     (10,'Pooja','Pune','Analyst',45000,20);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++------+---------+------------+-----------+--------+--------+
+| Eid  | Ename   | City       | Post      | Salary | deptno |
++------+---------+------------+-----------+--------+--------+
+|    1 | John    | Nashik     | Clerk     |   5000 |     10 |
+|    2 | Seema   | Aurangabad | Developer |  20000 |     20 |
+|    3 | Amita   | Nagar      | Manager   |  70000 |     20 |
+|    4 | Rakesh  | Pune       | Analyst   |   8000 |     10 |
+|    5 | Samata  | Nashik     | Tester    |  20000 |     10 |
+|    6 | Anita   | Chandwad   | Developer |  30000 |     30 |
+|    7 | Bhavika | Pune       | Team-LR   |  50000 |     30 |
+|    8 | Deepa   | Mumbai     | CEO       |  90000 |     10 |
+|    9 | Nitin   | Nagpur     | Clerk     |   8000 |     30 |
+|   10 | Pooja   | Pune       | Analyst   |  45000 |     20 |
++------+---------+------------+-----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> //Display the information of employees, paid more than ‘pooja' from emp table
+    '> ;
+    '> select * from emp where salary > pooja;
+    '> ^C
+mysql> select * from emp where salary > pooja;
+ERROR 1054 (42S22): Unknown column 'pooja' in 'where clause'
+mysql> select * from emp where salary > (select salary from emp where Ename='Pooja');
++------+---------+--------+---------+--------+--------+
+| Eid  | Ename   | City   | Post    | Salary | deptno |
++------+---------+--------+---------+--------+--------+
+|    3 | Amita   | Nagar  | Manager |  70000 |     20 |
+|    7 | Bhavika | Pune   | Team-LR |  50000 |     30 |
+|    8 | Deepa   | Mumbai | CEO     |  90000 |     10 |
++------+---------+--------+---------+--------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select City from emp where City = (select City from emp where Ename='Rakesh');
++------+
+| City |
++------+
+| Pune |
+| Pune |
+| Pune |
++------+
+3 rows in set (0.00 sec)
+
+mysql> select Ename from emp where City = (select City from emp where Ename='Rakesh');
++---------+
+| Ename   |
++---------+
+| Rakesh  |
+| Bhavika |
+| Pooja   |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where salary >(select avg(salary) from emp);
++------+---------+--------+---------+--------+--------+
+| Eid  | Ename   | City   | Post    | Salary | deptno |
++------+---------+--------+---------+--------+--------+
+|    3 | Amita   | Nagar  | Manager |  70000 |     20 |
+|    7 | Bhavika | Pune   | Team-LR |  50000 |     30 |
+|    8 | Deepa   | Mumbai | CEO     |  90000 |     10 |
+|   10 | Pooja   | Pune   | Analyst |  45000 |     20 |
++------+---------+--------+---------+--------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select * from emp where salary <(select avg(salary) from emp);
++------+--------+------------+-----------+--------+--------+
+| Eid  | Ename  | City       | Post      | Salary | deptno |
++------+--------+------------+-----------+--------+--------+
+|    1 | John   | Nashik     | Clerk     |   5000 |     10 |
+|    2 | Seema  | Aurangabad | Developer |  20000 |     20 |
+|    4 | Rakesh | Pune       | Analyst   |   8000 |     10 |
+|    5 | Samata | Nashik     | Tester    |  20000 |     10 |
+|    6 | Anita  | Chandwad   | Developer |  30000 |     30 |
+|    9 | Nitin  | Nagpur     | Clerk     |   8000 |     30 |
++------+--------+------------+-----------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp where salary =(select max(salary) from emp);
++------+-------+--------+------+--------+--------+
+| Eid  | Ename | City   | Post | Salary | deptno |
++------+-------+--------+------+--------+--------+
+|    8 | Deepa | Mumbai | CEO  |  90000 |     10 |
++------+-------+--------+------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where salary =(select min(salary) from emp);
++------+-------+--------+-------+--------+--------+
+| Eid  | Ename | City   | Post  | Salary | deptno |
++------+-------+--------+-------+--------+--------+
+|    1 | John  | Nashik | Clerk |   5000 |     10 |
++------+-------+--------+-------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select Ename,Salary,deptno from emp where salary in (select min(salary) from emp group by deptno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select Ename,Salary,deptno from emp where salary in (select min(salary) from emp group by deptno);
++--------+--------+--------+
+| Ename  | Salary | deptno |
++--------+--------+--------+
+| John   |   5000 |     10 |
+| Seema  |  20000 |     20 |
+| Rakesh |   8000 |     10 |
+| Samata |  20000 |     10 |
+| Nitin  |   8000 |     30 |
++--------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select Ename,Salary,deptno from emp where salary > all (select salary from emp where post='Developer');
++---------+--------+--------+
+| Ename   | Salary | deptno |
++---------+--------+--------+
+| Amita   |  70000 |     20 |
+| Bhavika |  50000 |     30 |
+| Deepa   |  90000 |     10 |
+| Pooja   |  45000 |     20 |
++---------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Display the employee name, salary and department no of those employees whose salary is lower than all  developers salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Display the employee name, salary and department no of those employees whose sal' at line 1
+mysql>
+mysql> select Ename,salary,deptno from emp where < all(select salary from emp where post='Developer');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '< all(select salary from emp where post='Developer')' at line 1
+mysql> select Ename,salary,deptno from emp where salary < all(select salary from emp where post='Developer');
++--------+--------+--------+
+| Ename  | salary | deptno |
++--------+--------+--------+
+| John   |   5000 |     10 |
+| Rakesh |   8000 |     10 |
+| Nitin  |   8000 |     30 |
++--------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> Display the employee name, salary and department no of those employees whose salary is higher than salary of any  developers salary
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Display the employee name, salary and department no of those employees whose sal' at line 1
+mysql> select Ename,salary,deptno from emp where salary >  any (select salary from emp where post='Developer');
++---------+--------+--------+
+| Ename   | salary | deptno |
++---------+--------+--------+
+| Amita   |  70000 |     20 |
+| Anita   |  30000 |     30 |
+| Bhavika |  50000 |     30 |
+| Deepa   |  90000 |     10 |
+| Pooja   |  45000 |     20 |
++---------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> Display the employee name, salary and department no of those employees whose salary is less than salary of developers salary.;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Display the employee name, salary and department no of those employees whose sal' at line 1
+mysql> select Ename,salary,deptno from emp where salary < any(select salary from emp where post='Developer');
++--------+--------+--------+
+| Ename  | salary | deptno |
++--------+--------+--------+
+| John   |   5000 |     10 |
+| Seema  |  20000 |     20 |
+| Rakesh |   8000 |     10 |
+| Samata |  20000 |     10 |
+| Nitin  |   8000 |     30 |
++--------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp order by Ename;
++------+---------+------------+-----------+--------+--------+
+| Eid  | Ename   | City       | Post      | Salary | deptno |
++------+---------+------------+-----------+--------+--------+
+|    3 | Amita   | Nagar      | Manager   |  70000 |     20 |
+|    6 | Anita   | Chandwad   | Developer |  30000 |     30 |
+|    7 | Bhavika | Pune       | Team-LR   |  50000 |     30 |
+|    8 | Deepa   | Mumbai     | CEO       |  90000 |     10 |
+|    1 | John    | Nashik     | Clerk     |   5000 |     10 |
+|    9 | Nitin   | Nagpur     | Clerk     |   8000 |     30 |
+|   10 | Pooja   | Pune       | Analyst   |  45000 |     20 |
+|    4 | Rakesh  | Pune       | Analyst   |   8000 |     10 |
+|    5 | Samata  | Nashik     | Tester    |  20000 |     10 |
+|    2 | Seema   | Aurangabad | Developer |  20000 |     20 |
++------+---------+------------+-----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from emp order by Ename desc;
++------+---------+------------+-----------+--------+--------+
+| Eid  | Ename   | City       | Post      | Salary | deptno |
++------+---------+------------+-----------+--------+--------+
+|    2 | Seema   | Aurangabad | Developer |  20000 |     20 |
+|    5 | Samata  | Nashik     | Tester    |  20000 |     10 |
+|    4 | Rakesh  | Pune       | Analyst   |   8000 |     10 |
+|   10 | Pooja   | Pune       | Analyst   |  45000 |     20 |
+|    9 | Nitin   | Nagpur     | Clerk     |   8000 |     30 |
+|    1 | John    | Nashik     | Clerk     |   5000 |     10 |
+|    8 | Deepa   | Mumbai     | CEO       |  90000 |     10 |
+|    7 | Bhavika | Pune       | Team-LR   |  50000 |     30 |
+|    6 | Anita   | Chandwad   | Developer |  30000 |     30 |
+|    3 | Amita   | Nagar      | Manager   |  70000 |     20 |
++------+---------+------------+-----------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from emp where salary > 10000 order by Ename having deptno=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'having deptno=10' at line 1
+mysql> select * from emp where salary > 10000 order by Ename;
++------+---------+------------+-----------+--------+--------+
+| Eid  | Ename   | City       | Post      | Salary | deptno |
++------+---------+------------+-----------+--------+--------+
+|    3 | Amita   | Nagar      | Manager   |  70000 |     20 |
+|    6 | Anita   | Chandwad   | Developer |  30000 |     30 |
+|    7 | Bhavika | Pune       | Team-LR   |  50000 |     30 |
+|    8 | Deepa   | Mumbai     | CEO       |  90000 |     10 |
+|   10 | Pooja   | Pune       | Analyst   |  45000 |     20 |
+|    5 | Samata  | Nashik     | Tester    |  20000 |     10 |
+|    2 | Seema   | Aurangabad | Developer |  20000 |     20 |
++------+---------+------------+-----------+--------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like=R%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=R%' at line 1
+mysql> select * from emp where Ename like R%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%' at line 1
+mysql> select * from emp where Ename like 'R%';
++------+--------+------+---------+--------+--------+
+| Eid  | Ename  | City | Post    | Salary | deptno |
++------+--------+------+---------+--------+--------+
+|    4 | Rakesh | Pune | Analyst |   8000 |     10 |
++------+--------+------+---------+--------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from emp where Ename like 'A%';
++------+-------+----------+-----------+--------+--------+
+| Eid  | Ename | City     | Post      | Salary | deptno |
++------+-------+----------+-----------+--------+--------+
+|    3 | Amita | Nagar    | Manager   |  70000 |     20 |
+|    6 | Anita | Chandwad | Developer |  30000 |     30 |
++------+-------+----------+-----------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like 'A%A';
++------+-------+----------+-----------+--------+--------+
+| Eid  | Ename | City     | Post      | Salary | deptno |
++------+-------+----------+-----------+--------+--------+
+|    3 | Amita | Nagar    | Manager   |  70000 |     20 |
+|    6 | Anita | Chandwad | Developer |  30000 |     30 |
++------+-------+----------+-----------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like '%A';
++------+---------+------------+-----------+--------+--------+
+| Eid  | Ename   | City       | Post      | Salary | deptno |
++------+---------+------------+-----------+--------+--------+
+|    2 | Seema   | Aurangabad | Developer |  20000 |     20 |
+|    3 | Amita   | Nagar      | Manager   |  70000 |     20 |
+|    5 | Samata  | Nashik     | Tester    |  20000 |     10 |
+|    6 | Anita   | Chandwad   | Developer |  30000 |     30 |
+|    7 | Bhavika | Pune       | Team-LR   |  50000 |     30 |
+|    8 | Deepa   | Mumbai     | CEO       |  90000 |     10 |
+|   10 | Pooja   | Pune       | Analyst   |  45000 |     20 |
++------+---------+------------+-----------+--------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like '%A%';
++------+---------+------------+-----------+--------+--------+
+| Eid  | Ename   | City       | Post      | Salary | deptno |
++------+---------+------------+-----------+--------+--------+
+|    2 | Seema   | Aurangabad | Developer |  20000 |     20 |
+|    3 | Amita   | Nagar      | Manager   |  70000 |     20 |
+|    4 | Rakesh  | Pune       | Analyst   |   8000 |     10 |
+|    5 | Samata  | Nashik     | Tester    |  20000 |     10 |
+|    6 | Anita   | Chandwad   | Developer |  30000 |     30 |
+|    7 | Bhavika | Pune       | Team-LR   |  50000 |     30 |
+|    8 | Deepa   | Mumbai     | CEO       |  90000 |     10 |
+|   10 | Pooja   | Pune       | Analyst   |  45000 |     20 |
++------+---------+------------+-----------+--------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like 'A%A%A';
+Empty set (0.00 sec)
+
+mysql> select * from emp where Ename like 'A%A';
++------+-------+----------+-----------+--------+--------+
+| Eid  | Ename | City     | Post      | Salary | deptno |
++------+-------+----------+-----------+--------+--------+
+|    3 | Amita | Nagar    | Manager   |  70000 |     20 |
+|    6 | Anita | Chandwad | Developer |  30000 |     30 |
++------+-------+----------+-----------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like 'BHA%';
++------+---------+------+---------+--------+--------+
+| Eid  | Ename   | City | Post    | Salary | deptno |
++------+---------+------+---------+--------+--------+
+|    7 | Bhavika | Pune | Team-LR |  50000 |     30 |
++------+---------+------+---------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where Ename like 'A_____';
+Empty set (0.00 sec)
+
+mysql> select * from emp where Ename like 'A____';
++------+-------+----------+-----------+--------+--------+
+| Eid  | Ename | City     | Post      | Salary | deptno |
++------+-------+----------+-----------+--------+--------+
+|    3 | Amita | Nagar    | Manager   |  70000 |     20 |
+|    6 | Anita | Chandwad | Developer |  30000 |     30 |
++------+-------+----------+-----------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where Ename like 'R__';
+Empty set (0.00 sec)
+
+mysql> select * from emp where Ename like 'R___';
+Empty set (0.00 sec)
+
+mysql> select * from emp where Ename like 'R__';
+Empty set (0.00 sec)
+
+mysql> select distinct(city) from emp;
++------------+
+| city       |
++------------+
+| Nashik     |
+| Aurangabad |
+| Nagar      |
+| Pune       |
+| Chandwad   |
+| Mumbai     |
+| Nagpur     |
++------------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct(deptno) from emp;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
+|     30 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select count(deptno) from emp;
++---------------+
+| count(deptno) |
++---------------+
+|            10 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from emp where salary > 10000 order by Ename having deptno=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'having deptno=10' at line 1
+mysql> select count(Ename) from emp where salary > 10000 order by Ename having deptno=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'having deptno=10' at line 1
+mysql> select count(Ename) from emp where salary > 10000;
++--------------+
+| count(Ename) |
++--------------+
+|            7 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(Ename) as Total_Count_of_Salary_Greter_than_10000 from emp where salary > 10000;
++-----------------------------------------+
+| Total_Count_of_Salary_Greter_than_10000 |
++-----------------------------------------+
+|                                       7 |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as Total_Count_of_Salary_Greter_than_10000 from emp where salary > 10000;
++-----------------------------------------+
+| Total_Count_of_Salary_Greter_than_10000 |
++-----------------------------------------+
+|                                       7 |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from emp where salary > 10000;
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from emp where salary > 10000;
++-------------+
+| sum(salary) |
++-------------+
+|      325000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from emp where salary > 10000;
++-------------+
+| max(salary) |
++-------------+
+|       90000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from emp where salary > 10000;
++-------------+
+| min(salary) |
++-------------+
+|       20000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select Post,max(salary) from emp group by Post;
++-----------+-------------+
+| Post      | max(salary) |
++-----------+-------------+
+| Clerk     |        8000 |
+| Developer |       30000 |
+| Manager   |       70000 |
+| Analyst   |       45000 |
+| Tester    |       20000 |
+| Team-LR   |       50000 |
+| CEO       |       90000 |
++-----------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select Post,max(salary) from emp group by City;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'interview.emp.Post' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select Post,max(salary),City from emp group by City;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'interview.emp.Post' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(salary),City from emp group by City;
++-------------+------------+
+| max(salary) | City       |
++-------------+------------+
+|       20000 | Nashik     |
+|       20000 | Aurangabad |
+|       70000 | Nagar      |
+|       50000 | Pune       |
+|       30000 | Chandwad   |
+|       90000 | Mumbai     |
+|        8000 | Nagpur     |
++-------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select City,max(salary) from emp group by City having City='Nagpur';
++--------+-------------+
+| City   | max(salary) |
++--------+-------------+
+| Nagpur |        8000 |
++--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select City,max(salary) from emp group by City having max(Salary)>20000;
++----------+-------------+
+| City     | max(salary) |
++----------+-------------+
+| Nagar    |       70000 |
+| Pune     |       50000 |
+| Chandwad |       30000 |
+| Mumbai   |       90000 |
++----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select City,max(salary) from emp group by City having Salary>20000;
+ERROR 1054 (42S22): Unknown column 'Salary' in 'having clause'
+mysql> select City,max(salary) from emp group by City having max(Salary)>20000;
++----------+-------------+
+| City     | max(salary) |
++----------+-------------+
+| Nagar    |       70000 |
+| Pune     |       50000 |
+| Chandwad |       30000 |
+| Mumbai   |       90000 |
++----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from emp where salary > (select avg(salary) from emp));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> delete from emp where salary > (select avg(salary) from emp);
+ERROR 1093 (HY000): You can't specify target table 'emp' for update in FROM clause
+mysql> select avg(salary) from emp;
++-------------+
+| avg(salary) |
++-------------+
+|  34600.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> delete from emp where salary > (select avg(salary) from emp);
+ERROR 1093 (HY000): You can't specify target table 'emp' for update in FROM clause
+mysql> delete from emp where salary > (select avg(salary) as salary from emp);
+ERROR 1093 (HY000): You can't specify target table 'emp' for update in FROM clause
+mysql> delete from emp where Ename= (select Ename from emp where Ename like 'A%');
+ERROR 1093 (HY000): You can't specify target table 'emp' for update in FROM clause
+mysql>

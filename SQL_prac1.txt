@@ -1,0 +1,1092 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 45
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ass                |
+| bookboot           |
+| bot                |
+| cart               |
+| daily_dairy        |
+| dailydiary         |
+| db1                |
+| information_schema |
+| jpaboot            |
+| mysql              |
+| performance_schema |
+| practice           |
+| sem5               |
+| servlet            |
+| springjdbc         |
+| springorm          |
+| sys                |
+| todo               |
++--------------------+
+18 rows in set (0.06 sec)
+
+mysql> create database interview;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> use interviwe;
+ERROR 1049 (42000): Unknown database 'interviwe'
+mysql> use interview;
+Database changed
+mysql> create table abc(ID int, Name varchar(40), City varchar(20));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc abc;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | YES  |     | NULL    |       |
+| Name  | varchar(40) | YES  |     | NULL    |       |
+| City  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table abc add constraint ID primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table abc add constraint primary key(ID);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc abc;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   | PRI | NULL    |       |
+| Name  | varchar(40) | YES  |     | NULL    |       |
+| City  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table abc modify ID int not null;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc abc;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   | PRI | NULL    |       |
+| Name  | varchar(40) | YES  |     | NULL    |       |
+| City  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table abc madify City varchar(20) default 'Nashik';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'madify City varchar(20) default 'Nashik'' at line 1
+mysql> alter table abc madify City varchar(20) default "Nashik";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'madify City varchar(20) default "Nashik"' at line 1
+mysql> alter table abc modify City varchar(20) default 'Nashik';
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc abc;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   | PRI | NULL    |       |
+| Name  | varchar(40) | YES  |     | NULL    |       |
+| City  | varchar(20) | YES  |     | Nashik  |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table abc add Lastname varchar(10) after Name;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table abc change Name varachar(20) to Firstname varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(20) to Firstname varchar(20)' at line 1
+mysql> alter table abc change Name to Firstname varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to Firstname varchar(20)' at line 1
+mysql> alter table abc rename column Name to Firstname;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc abc;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(40) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table drop column Lastname;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop column Lastname' at line 1
+mysql> alter table drop column Lastname varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop column Lastname varchar(20)' at line 1
+mysql> alter table abc drop column Lastname varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(20)' at line 1
+mysql> alter table abc drop column Lastname;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc abc;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(40) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table abc rename person;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc abc;
+ERROR 1146 (42S02): Table 'interview.abc' doesn't exist
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(40) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table person drop contraint primary key(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key(ID)' at line 1
+mysql> alter table person drop contraint primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key' at line 1
+mysql> alter table person drop contraint ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ID' at line 1
+mysql> alter table person drop constraint ID;
+ERROR 3940 (HY000): Constraint 'ID' does not exist.
+mysql> alter table person drop constraint Primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Primary key' at line 1
+mysql> alter table person drop constraint Primary key(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Primary key(ID)' at line 1
+mysql> alter table person drop constraint primary key(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key(ID)' at line 1
+mysql> alter table person drop constraint primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key' at line 1
+mysql> alter table person drop primary key;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   |     | NULL    |       |
+| Firstname | varchar(40) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table person add Lastname varchar(10) after Firstname;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table person modify Firstname varchar(10);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person add constraint primary Key(ID);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table person modify ID auto_increment;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment' at line 1
+mysql> alter table person modify auto_increment(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(ID)' at line 1
+mysql> alter table person modify auto increment(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'increment(ID)' at line 1
+mysql> alter table person modify ID auto increment;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto increment' at line 1
+mysql> alter table person modify ID autoincrement;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'autoincrement' at line 1
+mysql> alter table person modify ID int autoincrement;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'autoincrement' at line 1
+mysql> alter table person modify ID int unsigned autoincrement;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'autoincrement' at line 1
+mysql> alter table person modify ID int unsigned auto_increment;
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| ID        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| Firstname | varchar(10)  | YES  |     | NULL    |                |
+| Lastname  | varchar(10)  | YES  |     | NULL    |                |
+| City      | varchar(20)  | YES  |     | Nashik  |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person change ID Pid int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person drop City;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table add City varchar(20) default 'Nashik';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add City varchar(20) default 'Nashik'' at line 1
+mysql> alter table person add City varchar(20) default 'Nashik';
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into person(Pid, Firstname, Lastname,City) values(1,'Nayan','Pawar','Chandwad');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into person(Firstname, Lastname) values('Ayush','Ajmera');
+ERROR 1364 (HY000): Field 'Pid' doesn't have a default value
+mysql> insert into person(Pid,Firstname, Lastname) values(2,'Ayush','Ajmera');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> alter table person modify Pid int auto_increment;
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into person(Firstname, Lastname,City) values('Mohit','Aher','Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into person(Firstname, Lastname,City) values('Sarang','Dhamane','Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into person(Firstname, Lastname,City) values('Sinu','Khairnar','Nashik');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into person(Firstname, Lastname) values('Dnyanesh','Kshatriya');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   5 | Sinu      | Khairnar  | Nashik   |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> upadte person Pid=5 set City='Mumbai';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte person Pid=5 set City='Mumbai'' at line 1
+mysql> upadte person where Pid=5 set City='Mumbai';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte person where Pid=5 set City='Mumbai'' at line 1
+mysql> upadte person set City='Mumbai' where Firstname='Sinu';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte person set City='Mumbai' where Firstname='Sinu'' at line 1
+mysql> update person set City='Mumbai' where Firstname='Sinu';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   5 | Sinu      | Khairnar  | Mumbai   |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> insert into person(Firstname, Lastname) values('Vedant','Rewagad');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   5 | Sinu      | Khairnar  | Mumbai   |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
+|   7 | Vedant    | Rewagad   | Nashik   |
++-----+-----------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> delete from person where City='Mumbai';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
+|   7 | Vedant    | Rewagad   | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> create index a1 on person(City);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from person;
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table  | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| person |          0 | PRIMARY  |            1 | Pid         | A         |           6 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| person |          1 | a1       |            1 | City        | A         |           3 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.01 sec)
+
+mysql> drop index a1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> drop index a1 on person;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from person;
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table  | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| person |          0 | PRIMARY  |            1 | Pid         | A         |           6 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> alter table person drop index a1;
+ERROR 1091 (42000): Can't DROP 'a1'; check that column/key exists
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
+|   7 | Vedant    | Rewagad   | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> show index from person;
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table  | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| person |          0 | PRIMARY  |            1 | Pid         | A         |           6 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> drop index a1 on person;
+ERROR 1091 (42000): Can't DROP 'a1'; check that column/key exists
+mysql> create view v1 as select Pid,City from person;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from v1;;
++-----+----------+
+| Pid | City     |
++-----+----------+
+|   1 | Chandwad |
+|   2 | Nashik   |
+|   3 | Pune     |
+|   4 | Pune     |
+|   6 | Nashik   |
+|   7 | Nashik   |
++-----+----------+
+6 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> select * from v1;
++-----+----------+
+| Pid | City     |
++-----+----------+
+|   1 | Chandwad |
+|   2 | Nashik   |
+|   3 | Pune     |
+|   4 | Pune     |
+|   6 | Nashik   |
+|   7 | Nashik   |
++-----+----------+
+6 rows in set (0.00 sec)
+
+mysql> drop view v1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from v1;
+ERROR 1146 (42S02): Table 'interview.v1' doesn't exist
+mysql> alter table perosn add constraint u1 unique (Pid);
+ERROR 1146 (42S02): Table 'interview.perosn' doesn't exist
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
+|   7 | Vedant    | Rewagad   | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> alter table person add constraint u1 unique (Pid);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| Pid       | int         | NO   | PRI | NULL    | auto_increment |
+| Firstname | varchar(10) | YES  |     | NULL    |                |
+| Lastname  | varchar(10) | YES  |     | NULL    |                |
+| City      | varchar(20) | YES  |     | Nashik  |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person drop contarint primary ket;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary ket' at line 1
+mysql> alter table person drop contraint primary ket;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary ket' at line 1
+mysql> alter table person drop contraint primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key' at line 1
+mysql> alter table person drop contraint Pid int primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Pid int primary key' at line 1
+mysql> alter table person drop contraint primary key(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key(ID)' at line 1
+mysql> alter table person drop contraint primary key(Pid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key(Pid)' at line 1
+mysql> alter table person drop constraint primary key(Pid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key(Pid)' at line 1
+mysql> alter table person drop constraint primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key' at line 1
+mysql> alter table person drop primary key;
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| Pid       | int         | NO   | PRI | NULL    | auto_increment |
+| Firstname | varchar(10) | YES  |     | NULL    |                |
+| Lastname  | varchar(10) | YES  |     | NULL    |                |
+| City      | varchar(20) | YES  |     | Nashik  |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person drop primary key;
+ERROR 1091 (42000): Can't DROP 'PRIMARY'; check that column/key exists
+mysql> alter table person drop primary key(Pid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(Pid)' at line 1
+mysql> desc person;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| Pid       | int         | NO   | PRI | NULL    | auto_increment |
+| Firstname | varchar(10) | YES  |     | NULL    |                |
+| Lastname  | varchar(10) | YES  |     | NULL    |                |
+| City      | varchar(20) | YES  |     | Nashik  |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| Pid       | int         | NO   | PRI | NULL    | auto_increment |
+| Firstname | varchar(10) | YES  |     | NULL    |                |
+| Lastname  | varchar(10) | YES  |     | NULL    |                |
+| City      | varchar(20) | YES  |     | Nashik  |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person modify Pid int;
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  | UNI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person modify Pid int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  | UNI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person drop unique;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unique' at line 1
+mysql> alter table person drop unique Pid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unique Pid' at line 1
+mysql> alter table person drop constarint Pid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Pid' at line 1
+mysql> alter table person drop constarint unique;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unique' at line 1
+mysql> alter table person drop constraint unique;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unique' at line 1
+mysql> alter table person drop constraint Pid;
+ERROR 3940 (HY000): Constraint 'Pid' does not exist.
+mysql> alter table person drop constraint Unique;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Unique' at line 1
+mysql> alter table person drop constraint Unique_Pid;
+ERROR 3940 (HY000): Constraint 'Unique_Pid' does not exist.
+mysql> alter table person drop constraint Pid;
+ERROR 3940 (HY000): Constraint 'Pid' does not exist.
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  | UNI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person drop constraint Pid int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int' at line 1
+mysql> alter table person drop index u1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> show index from person;
+Empty set (0.00 sec)
+
+mysql> alter table person add constraint u1 unique (Pid);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from person;
++------+-----------+-----------+----------+
+| Pid  | Firstname | Lastname  | City     |
++------+-----------+-----------+----------+
+|    1 | Nayan     | Pawar     | Chandwad |
+|    2 | Ayush     | Ajmera    | Nashik   |
+|    3 | Mohit     | Aher      | Pune     |
+|    4 | Sarang    | Dhamane   | Pune     |
+|    6 | Dnyanesh  | Kshatriya | Nashik   |
+|    7 | Vedant    | Rewagad   | Nashik   |
++------+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  | UNI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> show index from person;
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table  | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| person |          0 | u1       |            1 | Pid         | A         |           6 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.01 sec)
+
+mysql> drop index Pid from person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from person' at line 1
+mysql> drop index Pid on person;
+ERROR 1091 (42000): Can't DROP 'Pid'; check that column/key exists
+mysql> alter table person drop index u1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person add constraint u1 unique (Pid);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  | UNI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> drop index u1  on person;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person add primary key(Pid);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from person;
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table  | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| person |          0 | PRIMARY  |            1 | Pid         | A         |           6 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++--------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> drop index Primary from person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Primary from person' at line 1
+mysql> drop index Primary on person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Primary on person' at line 1
+mysql> drop index PRIMARY on person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY on person' at line 1
+mysql> drop index PRIMARY on person;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY on person' at line 1
+mysql> alter table person modify Pid int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person modify Pid int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person drop primary key;
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person modify Pid int;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select *from information_schema.table_constraints where table_name='person';
+Empty set (0.01 sec)
+
+mysql> alter table person add constraint u1 unique (Pid);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from information_schema.table_constraints where table_name='person';
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+| CONSTRAINT_CATALOG | CONSTRAINT_SCHEMA | CONSTRAINT_NAME | TABLE_SCHEMA | TABLE_NAME | CONSTRAINT_TYPE | ENFORCED |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+| def                | interview         | u1              | interview    | person     | UNIQUE          | YES      |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+1 row in set (0.00 sec)
+
+mysql> drop index u1  on person;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | YES  |     | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table person add primary key(Pid);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Pid       | int         | NO   | PRI | NULL    |       |
+| Firstname | varchar(10) | YES  |     | NULL    |       |
+| Lastname  | varchar(10) | YES  |     | NULL    |       |
+| City      | varchar(20) | YES  |     | Nashik  |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table account(Aid int, AccType varchar(10), foreign key f1(Aid)references person(Pid) on update cascade on delete cascade);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from account;
+Empty set (0.01 sec)
+
+mysql> truncate table person;
+ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`interview`.`account`, CONSTRAINT `account_ibfk_1`)
+mysql> insert into Account(Aid,AccType) values(1,'saving');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Account(Aid,AccType) values(2,'saving');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Account(Aid,AccType) values(3,'current');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Account(Aid,AccType) values(4,'saving');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Account(Aid,AccType) values(5,'current');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`interview`.`account`, CONSTRAINT `account_ibfk_1` FOREIGN KEY (`Aid`) REFERENCES `person` (`Pid`) ON DELETE CASCADE ON UPDATE CASCADE)
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   6 | Dnyanesh  | Kshatriya | Nashik   |
+|   7 | Vedant    | Rewagad   | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> insert into Account(Aid,AccType) values(6,'current');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Account(Aid,AccType) values(7,'current');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Accont;
+ERROR 1146 (42S02): Table 'interview.accont' doesn't exist
+mysql> select * from Account;
++------+---------+
+| Aid  | AccType |
++------+---------+
+|    1 | saving  |
+|    2 | saving  |
+|    3 | current |
+|    4 | saving  |
+|    6 | current |
+|    7 | current |
++------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update person set Pid=8 where Pid=6;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   7 | Vedant    | Rewagad   | Nashik   |
+|   8 | Dnyanesh  | Kshatriya | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from account;
++------+---------+
+| Aid  | AccType |
++------+---------+
+|    1 | saving  |
+|    2 | saving  |
+|    3 | current |
+|    4 | saving  |
+|    8 | current |
+|    7 | current |
++------+---------+
+6 rows in set (0.00 sec)
+
+mysql> create table Job(Jid int, Role varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> alter table Job add foreign key(Jid) reference person(Pid) on upadte cascade on delete cascade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference person(Pid) on upadte cascade on delete cascade' at line 1
+mysql> alter table Job add foreign key Job(Jid) reference person(Pid) on upadte cascade on delete cascade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference person(Pid) on upadte cascade on delete cascade' at line 1
+mysql> alter table Job add foreign key(Jid) references person(Pid) on upadte cascade on delete cascade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte cascade on delete cascade' at line 1
+mysql> alter table Job add foreign key(Jid) references person(Pid) on update cascade on delete cascade;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into Job(Jid,Role) values(8,'Java Developer');
+ERROR 1406 (22001): Data too long for column 'Role' at row 1
+mysql> insert into Job(Jid,Role) values(8,'Developer');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from person;
++-----+-----------+-----------+----------+
+| Pid | Firstname | Lastname  | City     |
++-----+-----------+-----------+----------+
+|   1 | Nayan     | Pawar     | Chandwad |
+|   2 | Ayush     | Ajmera    | Nashik   |
+|   3 | Mohit     | Aher      | Pune     |
+|   4 | Sarang    | Dhamane   | Pune     |
+|   7 | Vedant    | Rewagad   | Nashik   |
+|   8 | Dnyanesh  | Kshatriya | Nashik   |
++-----+-----------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Account;
++------+---------+
+| Aid  | AccType |
++------+---------+
+|    1 | saving  |
+|    2 | saving  |
+|    3 | current |
+|    4 | saving  |
+|    8 | current |
+|    7 | current |
++------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Job;
++------+-----------+
+| Jid  | Role      |
++------+-----------+
+|    8 | Developer |
++------+-----------+
+1 row in set (0.00 sec)
+
+mysql> delete from person where Pid=8;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from person;
++-----+-----------+----------+----------+
+| Pid | Firstname | Lastname | City     |
++-----+-----------+----------+----------+
+|   1 | Nayan     | Pawar    | Chandwad |
+|   2 | Ayush     | Ajmera   | Nashik   |
+|   3 | Mohit     | Aher     | Pune     |
+|   4 | Sarang    | Dhamane  | Pune     |
+|   7 | Vedant    | Rewagad  | Nashik   |
++-----+-----------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Account;
++------+---------+
+| Aid  | AccType |
++------+---------+
+|    1 | saving  |
+|    2 | saving  |
+|    3 | current |
+|    4 | saving  |
+|    7 | current |
++------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Job;
+Empty set (0.00 sec)
+
+mysql> show index from JOb;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| job   |          1 | Jid      |            1 | Jid         | A         |           0 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.01 sec)
+
+mysql> alter table Job drop foreign key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table Job drop foreign key(Jid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(Jid)' at line 1
+mysql> alter table Job drop foreign key f1;;
+ERROR 1091 (42000): Can't DROP 'f1'; check that column/key exists
+ERROR:
+No query specified
+
+mysql> alter table Job drop foreign key f1;
+ERROR 1091 (42000): Can't DROP 'f1'; check that column/key exists
+mysql> alter table Job drop foreign key Jid;
+ERROR 1091 (42000): Can't DROP 'Jid'; check that column/key exists
+mysql> drop index Jid on JOb;
+ERROR 1553 (HY000): Cannot drop index 'Jid': needed in a foreign key constraint
+mysql> alter table Job modify Jid int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Job;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Jid   | int         | YES  | MUL | NULL    |       |
+| Role  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show index from JOb;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| job   |          1 | Jid      |            1 | Jid         | A         |           0 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT  constraint_name FROM  information_schema.REFERENTIAL_CONSTRAINTS WHERE  constraint_schema = 'db1' AND table_name ='Job';
+Empty set (0.01 sec)
+
+mysql> SELECT foreign key FROM  information_schema.REFERENTIAL_CONSTRAINTS WHERE  constraint_schema = 'db1' AND table_name ='Job';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key FROM  information_schema.REFERENTIAL_CONSTRAINTS WHERE  constraint_s' at line 1
+mysql> SELECT  constraint_name FROM  information_schema.REFERENTIAL_CONSTRAINTS WHERE  constraint_schema = 'interview' AND table_name ='Job';
++-----------------+
+| CONSTRAINT_NAME |
++-----------------+
+| job_ibfk_1      |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> alter table Job drop foreign key job_ibfk_1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Job;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Jid   | int         | YES  | MUL | NULL    |       |
+| Role  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table Job drop foreign key job_ibfk_1;
+ERROR 1091 (42000): Can't DROP 'job_ibfk_1'; check that column/key exists
+mysql>
